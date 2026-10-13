@@ -85,7 +85,7 @@ def database_error(error):
 
 @app.get("/api/error-demo")
 def error_demo():
-    raise ValueError("Day2 오류 연습")
+    return {"message": "오류 수정 완료"}
 
 
 if __name__ == "__main__":
