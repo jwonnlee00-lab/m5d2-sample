@@ -1,11 +1,22 @@
 import os
 
 import psycopg
+import sentry_sdk
 from dotenv import load_dotenv
 from flask import Flask, request
 from psycopg.rows import dict_row
 
 load_dotenv(interpolate=False)
+
+sentry_sdk.init(
+    dsn=os.environ.get("SENTRY_DSN", ""),
+    environment=os.environ.get("SENTRY_ENVIRONMENT", "local"),
+    send_default_pii=False,
+    include_local_variables=False,
+    enable_logs=False,
+    traces_sample_rate=0.0,
+)
+
 app = Flask(__name__)
 app.json.ensure_ascii = False
 VERSION = "v3"
@@ -70,6 +81,11 @@ def add_message():
 def database_error(error):
     app.logger.exception("메시지 DB 작업 실패")
     return {"error": "DB 연결과 테이블을 확인하세요."}, 503
+
+
+@app.get("/api/error-demo")
+def error_demo():
+    raise ValueError("Day2 오류 연습")
 
 
 if __name__ == "__main__":
