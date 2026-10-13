@@ -59,7 +59,7 @@ export default function Home() {
 
   return (
     <main>
-      <h1>메시지 보관함</h1>
+      <h1>메시지 보관함 14:49</h1>
       <p>메시지를 남기고 저장된 목록을 확인하세요.</p>
       <form onSubmit={save}>
         <label htmlFor="content">메시지</label>
